@@ -1,0 +1,45 @@
+# @format
+
+name: Firebase Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies (root)
+        run: yarn install
+
+      - name: Build Vite project
+        run: yarn build
+
+      - name: Install Firebase functions dependencies
+        working-directory: functions
+        run: yarn install
+
+      - name: Create service account key file
+        run: |
+          mkdir -p functions
+          echo "$GCP_SERVICE_ACCOUNT_JSON" > functions/google-service-account.json
+        env:
+          GCP_SERVICE_ACCOUNT_JSON: ${{ secrets.GCP_SERVICE_ACCOUNT_JSON }}
+
+      - name: Deploy to Firebase (Hosting + Functions)
+        uses: w9jds/firebase-action@v13
+        with:
+          args: deploy --only hosting,functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

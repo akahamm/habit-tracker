@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 🔐 유저 루트 - 사용자 인증 필요
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // ✅ 월별 목표 설정: users/{userId}/goals/{YYYY-MM}
+      match /goals/{monthId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // ✅ 월별 목표 달성 기록: users/{userId}/entries/{YYYY-MM}
+      match /entries/{monthId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // (선택) 향후 캐싱 용 통계 문서: users/{userId}/stats/{YYYY-MM}
+      match /stats/{monthId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+  }
+}
