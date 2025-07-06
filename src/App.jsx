@@ -229,7 +229,7 @@ function App() {
       cells.push(
         <div
           key={i}
-          className={`${styles.calendarCell} min-h-[130px] ${
+          className={`${styles.calendarCell} min-h-[100px] sm:min-h-[130px] ${
             isCurrentMonth
               ? isFuture
                 ? "bg-gray-100 cursor-not-allowed"
@@ -321,7 +321,7 @@ function App() {
     return (
       <div className="mt-8">
         <h3 className="text-lg font-semibold mb-2">📊 목표별 월간 현황</h3>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto text-xs sm:text-sm">
           <table className="table-auto border-collapse w-full text-sm">
             <thead>
               <tr className="bg-gray-100">
@@ -370,7 +370,7 @@ function App() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} px-0 sm:px-4`}>
       <div className={`${styles.maxWidth} ${styles.card}`}>
         {/* Header */}
         <div className="flex justify-between items-start mb-6">
@@ -419,7 +419,7 @@ function App() {
                   const barWidth = Math.min(percent, 100);
                   return (
                     <div key={goal.name} className="flex flex-col gap-1 mb-1">
-                      <div className="flex items-center justify-between text-sm font-medium text-gray-700">
+                      <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-gray-700">
                         <span>
                           월간 {goal.name} 달성도: {label} ({percent}%)
                         </span>
@@ -515,7 +515,9 @@ function App() {
           ))}
         </div>
         {/* Calendar Cells */}
-        <div className={styles.calendarGrid}>{renderCalendarCells()}</div>
+        <div className={`${styles.calendarGrid} gap-1 sm:gap-2`}>
+          {renderCalendarCells()}
+        </div>
         {renderGoalSummary()}
 
         {/* Goal Modal */}

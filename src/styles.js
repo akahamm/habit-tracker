@@ -2,8 +2,8 @@
 
 // 스타일 클래스 정의
 const styles = {
-  container: "min-h-screen bg-gray-50 p-4",
-  maxWidth: "max-w-4xl mx-auto",
+  container: "min-h-screen bg-gray-50 p-2",
+  maxWidth: "w-full max-w-screen-xl mx-auto",
   card: "bg-white rounded-lg shadow-md p-6",
   cardSmall: "bg-white rounded-lg shadow-md p-4",
   cardSection: "mb-6",
