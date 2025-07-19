@@ -21,7 +21,6 @@ const CalendarCell = ({
     return (
       <div 
         className="w-full"
-        style={{ minHeight: '64px' }}
       />
     );
   }

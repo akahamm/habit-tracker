@@ -14,6 +14,7 @@ const GoalModal = ({
   goalColor,
   setGoalColor,
   onSave,
+  onDelete,
   onClose
 }) => {
   if (!showGoalModal) return null;
@@ -109,6 +110,14 @@ const GoalModal = ({
           
           {/* 버튼 */}
           <div className="flex justify-end gap-2 pt-4">
+            {editingGoal && (
+              <button
+                onClick={onDelete}
+                className={styles.button.danger}
+              >
+                삭제
+              </button>
+            )}
             <button
               onClick={onClose}
               className={styles.button.secondary}
